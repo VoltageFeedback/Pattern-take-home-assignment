@@ -7,17 +7,37 @@ import { JobPostingDTO } from '../dto/job-posting.dto';
 @Injectable()
 export class JobPostingService {
   constructor(
-    @InjectRepository(JobPosting) private readonly repo: Repository<JobPosting>,
-  ) { }
+    @InjectRepository(JobPosting)
+    private readonly jobPostingRepository: Repository<JobPosting>,
+  ) {}
 
-  public async getAll(): Promise<JobPostingDTO[]> {
-    return await this.repo.find()
-      .then(items => items.map(e => JobPostingDTO.fromEntity(e)));
+  public async findAll(): Promise<JobPosting[]> {
+    return await this.jobPostingRepository.find();
   }
 
-  public async create(dto: JobPostingDTO): Promise<JobPostingDTO> {
-    return this.repo.save(JobPostingDTO.toEntity(dto))
-      .then(e => JobPostingDTO.fromEntity(e));
+
+  public async findById(id: number): Promise<JobPosting | null> {
+    return await this.jobPostingRepository.findOneOrFail(id);
+  }
+
+  public async create(todo: JobPostingDTO): Promise<JobPosting> {
+    return await this.jobPostingRepository.save(todo);
+  }
+
+  public async update(
+    id: number,
+    dto: JobPostingDTO,
+  ): Promise<JobPosting | null> {
+    const jobPosting = await this.jobPostingRepository.findOneOrFail(id);
+    if (!jobPosting.id) {
+      console.error("Job posting not found");
+    }
+    await this.jobPostingRepository.update(id, dto);
+    return await this.jobPostingRepository.findOne(id);
+  }
+
+  public async remove(id: number): Promise<void> {
+    await this.jobPostingRepository.delete(id);
   }
 }
 

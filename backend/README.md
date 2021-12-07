@@ -7,21 +7,21 @@ A web app with basic CRUD for job posting
 ```bash
 $ npm i -g @nestjs/cli
 $ npm i -D @types/express
-$ npm install --save @nestjs/typeorm typeorm pg
-$ npm install --save dotenv
+$ npm i --save @nestjs/typeorm typeorm pg
+$ npm i --save dotenv
 $ npm i --save-dev nodemon ts-node
 $ npm i --save @nestjs/swagger
 $ npm i --save class-validator
 $ npm i --save class-transformer
+$ npm i --save-dev @nestjs/testing
+$ npm i --save @nestjs/swagger swagger-ui-express
 ```
 
 ## Running the app
 
 ```bash
-# development
-$ npm run start
 
-# watch mode
+# development
 $ npm run start:dev
 
 # production mode
