@@ -9,35 +9,35 @@ import { JobPostingDTO } from '../dto/job-posting.dto';
 export class JobPostingController {
   constructor(private serv: JobPostingService) { }
 
-  @Get('/')
+  @Get('/getAll')
   @UsePipes(ValidationPipe)
   @HttpCode(HttpStatus.OK)
   public async getAll(): Promise<JobPostingDTO[]> {
     return await this.serv.findAll()
   }
 
-  @Post()
+  @Post('/createJobPosting')
   @UsePipes(ValidationPipe)
   @HttpCode(HttpStatus.CREATED)
   public async createJobPosting(@Body() dto: JobPostingDTO): Promise<JobPostingDTO> {
     return this.serv.create(dto);
   }
 
-  @Get('/:id')
+  @Get('/getById:id')
   @UsePipes(ValidationPipe)
   @HttpCode(HttpStatus.OK)
   public async getById(@Param('id') id: number) {
     return this.serv.findById(+id);
   }
 
-  @Patch('/:id')
+  @Patch('/updateJobPosting:id')
   @UsePipes(ValidationPipe)
   @HttpCode(HttpStatus.OK)
   public async updateJobPosting(@Param('id') id: number, @Body() dto: JobPostingDTO) {
     return this.serv.update(id, dto);
   }
 
-  @Delete('/:id')
+  @Delete('/removeJobPosting:id')
   @UsePipes(ValidationPipe)
   @HttpCode(HttpStatus.OK)
   public async removeJobPosting(@Param('id') id: number) {
