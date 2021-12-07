@@ -3,11 +3,11 @@ import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateCol
 @Entity()
 export abstract class BaseEntity {
     @PrimaryGeneratedColumn()
-    public id: number;
+    id: number;
 
-    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
-    public create_at: Date;
+    @CreateDateColumn()
+    createdAt: Date;
 
-    @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: "CURRENT_TIMESTAMP(6)" })
-    public update_at: Date;
+    @UpdateDateColumn()
+    updatedAt: Date;
 }

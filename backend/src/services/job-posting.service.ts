@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JobPosting } from '../models/job-posting.entity';
 import { Repository } from 'typeorm';
-import { JobPostingDTO } from '../dto/job-posting.dto';
+import { JobPostingDTO, CreateJobPostingDTO, UpdateJobPostingDTO } from '../dto/job-posting.dto';
 
 @Injectable()
 export class JobPostingService {
@@ -20,13 +20,13 @@ export class JobPostingService {
     return await this.jobPostingRepository.findOneOrFail(id);
   }
 
-  public async create(todo: JobPostingDTO): Promise<JobPosting> {
-    return await this.jobPostingRepository.save(todo);
+  public async create(dto: CreateJobPostingDTO): Promise<JobPosting> {
+    return await this.jobPostingRepository.save(dto);
   }
 
   public async update(
     id: number,
-    dto: JobPostingDTO,
+    dto: UpdateJobPostingDTO,
   ): Promise<JobPosting | null> {
     const jobPosting = await this.jobPostingRepository.findOneOrFail(id);
     if (!jobPosting.id) {

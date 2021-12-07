@@ -3,7 +3,7 @@ import {
   UsePipes
 } from '@nestjs/common';
 import { JobPostingService } from '../services/job-posting.service';
-import { JobPostingDTO } from '../dto/job-posting.dto';
+import { JobPostingDTO, CreateJobPostingDTO, UpdateJobPostingDTO } from '../dto/job-posting.dto';
 
 @Controller('/api/v1/job-posting')
 export class JobPostingController {
@@ -19,7 +19,7 @@ export class JobPostingController {
   @Post('/createJobPosting')
   @UsePipes(ValidationPipe)
   @HttpCode(HttpStatus.CREATED)
-  public async createJobPosting(@Body() dto: JobPostingDTO): Promise<JobPostingDTO> {
+  public async createJobPosting(@Body() dto: CreateJobPostingDTO) {
     return this.serv.create(dto);
   }
 
@@ -33,7 +33,7 @@ export class JobPostingController {
   @Patch('/updateJobPosting:id')
   @UsePipes(ValidationPipe)
   @HttpCode(HttpStatus.OK)
-  public async updateJobPosting(@Param('id') id: number, @Body() dto: JobPostingDTO) {
+  public async updateJobPosting(@Param('id') id: number, @Body() dto: UpdateJobPostingDTO) {
     return this.serv.update(id, dto);
   }
 
