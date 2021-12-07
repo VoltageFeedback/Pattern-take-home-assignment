@@ -1,7 +1,7 @@
 import { Entity, Column, Timestamp } from 'typeorm';
 import { BaseEntity } from './base.entity';
 
-@Entity({ name: 'job-posting' })
+@Entity({ name: 'job_posting' })
 export class JobPosting extends BaseEntity {
 
   @Column({ type: 'varchar', length: 300 })

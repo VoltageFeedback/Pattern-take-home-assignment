@@ -1,27 +1,13 @@
-import { PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn } from 'typeorm';
 
+@Entity()
 export abstract class BaseEntity {
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
 
-    @Column({ type: 'boolean', default: true })
-    isActive: boolean;
+    @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
+    public create_at: Date;
 
-    @Column({ type: 'boolean', default: false })
-    isArchived: boolean;
-
-    @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-    create_at: Date;
-
-    @Column({ type: 'varchar', length: 300 })
-    createdBy: string;
-
-    @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-    update_at: Date;
-
-    @Column({ type: 'varchar', length: 300 })
-    lastChangedBy: string;
-
-    @Column({ type: 'varchar', length: 300, nullable: true })
-    internalComment: string | null;
+    @UpdateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)', onUpdate: "CURRENT_TIMESTAMP(6)" })
+    public update_at: Date;
 }
